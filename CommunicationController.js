@@ -1,0 +1,44 @@
+export default class CommunicationController{
+    static BASE_URL = "https://ewserver.di.unimi.it/mobicomp/treest/"
+
+    static async treestRequest(endpoint, parameters) {
+        console.log("sending request to: " + endpoint);
+        const url = this.BASE_URL + endpoint;
+        let httpResponse = await fetch(url, {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(parameters)
+        });
+        const status = httpResponse.status;
+        if (status == 200) {
+            let deserializedObject = await httpResponse.json();
+            return deserializedObject;
+        } else {
+            let error = new Error("Error message from the server. HTTP status: " + status);
+            throw error;
+        }
+    }
+
+
+    static async register() {
+        const endPoint = "register.php";
+        const parameter = {};
+        return await CommunicationController.treestRequest(endPoint, parameter);
+    }
+
+    static async getLines(sid) {
+        const endPoint = "getLines.php";
+        const parameter = {sid: sid};
+        return await CommunicationController.treestRequest(endPoint, parameter);
+    }
+    
+    static async getPosts(sid,did) {
+        const endPoint = "getPosts.php";
+        const parameter = {sid: sid, did:did};
+        return await CommunicationController.treestRequest(endPoint, parameter);
+    }
+    
+}
