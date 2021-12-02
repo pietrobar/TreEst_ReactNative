@@ -4,7 +4,6 @@ class Row extends React.Component {
     
     render() {
         let l =this.props.data.item;
-        console.log(l)
         return(
             <View style={this.styles.container}> 
                 <Text style={this.styles.subTitle}>{l.terminus1.sname + "->" + l.terminus2.sname}</Text>

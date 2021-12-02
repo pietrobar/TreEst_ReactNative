@@ -40,5 +40,11 @@ export default class CommunicationController{
         const parameter = {sid: sid, did:did};
         return await CommunicationController.treestRequest(endPoint, parameter);
     }
+
+    static async addPost(sid,did,delay, status, comment){
+        const endPoint = "addPost.php";
+        const parameter = {sid: sid, did:did, delay:delay,status:status,comment:comment};
+        return await CommunicationController.treestRequest(endPoint, parameter);
+    }
     
 }

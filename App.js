@@ -11,15 +11,12 @@ import CommunicationController from './CommunicationController'
 class App extends React.Component{
   state = {
       jsonData : null ,
-       jsonPost: null,
-       page:"first",
-       toShow: {},
-       direction: {}
+      page:"first",
+      toShow: {},
+      direction: {}
   }
 
   handleSelection = (line,direction) =>{
-      if(direction)
-        this.retrievePosts(direction.did)
       this.state.toShow = line
       this.state.direction = direction
       if (this.state.page==="first")
@@ -29,14 +26,7 @@ class App extends React.Component{
       this.setState(this.state)
   }
 
-  retrievePosts = (did) => {
-    CommunicationController.getPosts("Cez4i87enqRWx32e",did)
-            .then(response=>{
-              console.log("response "+response)
-              this.state.jsonPost=response
-              this.setState(this.state)})
-            .catch(error => console.log("errore "+error))
-  }
+  
 
   
 
@@ -53,7 +43,6 @@ class App extends React.Component{
   }
 
   render() {
-    console.log(this.state)
       if (this.state.page==="first" && this.state.jsonData!=null){
           return <SafeAreaView>
             <Text style={styles.title}>Tratte</Text>
@@ -68,19 +57,13 @@ class App extends React.Component{
           </SafeAreaView>;
       }
 
-      else if(this.state.page==="second" && this.state.jsonPost!=null){
+      else if(this.state.page==="second"){
+          console.log("rendering second page")
           let line = this.state.toShow
           let direction = this.state.direction
-          console.log(line)
           return <SafeAreaView>
               {<SecondPage line={line} direction={direction} onBackPressed={this.handleSelection}/>}
-              <SafeAreaView>
-              <FlatList
-                data={this.state.jsonPost.posts}
-                renderItem={(item) => {return (<Post data={item}/>)}}
-                keyExtractor={item => item.datetime}
-              />
-            </SafeAreaView>
+              
             <StatusBar styles="auto"/>
           </SafeAreaView>;
       }else{
