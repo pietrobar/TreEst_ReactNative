@@ -5,6 +5,9 @@ import Row from './Row';
 import SecondPage from './SecondPage';
 import Post from './Post';
 import CommunicationController from './CommunicationController'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import StorageManager from './StorageManager';
+
 
 
 
@@ -14,6 +17,18 @@ class App extends React.Component{
       page:"first",
       toShow: {},
       direction: {}
+  }
+
+  async checkFirstRun() {
+    const secondRun = await AsyncStorage.getItem("second_run")
+    console.log(secondRun)
+    if (secondRun==="true") {
+      console.log("Second run");
+    } else {
+      console.log("first run");
+      await AsyncStorage.setItem("second_run", "true");
+    }
+    return secondRun==="true"
   }
 
   handleSelection = (line,direction) =>{
@@ -31,7 +46,23 @@ class App extends React.Component{
   
 
   componentDidMount() {
-  
+    this.checkFirstRun().then(result =>{
+      //manage second access
+      if (result==="true"){
+        console.log("PRIMO ACCESSO")
+      }else{
+        console.log("SECONDO ACCESSO")
+        let sm = new StorageManager();
+        sm.initDB(
+            result => console.log("risultato", result),
+            error => console.log("error", error)
+            );
+      }
+    });
+
+    
+
+    
     //retrieve lines
     CommunicationController.getLines("Cez4i87enqRWx32e")
       .then(unmarshalledObj =>{

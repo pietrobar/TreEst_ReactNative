@@ -46,5 +46,12 @@ export default class CommunicationController{
         const parameter = {sid: sid, did:did, delay:delay,status:status,comment:comment};
         return await CommunicationController.treestRequest(endPoint, parameter);
     }
+
+    static async getUserPicture(sid,uid) {
+        const endPoint = "getUserPicture.php";
+        const parameter = {sid: sid, uid:uid};
+        return await CommunicationController.treestRequest(endPoint, parameter);
+    }
+
     
 }
