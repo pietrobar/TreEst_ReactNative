@@ -53,5 +53,11 @@ export default class CommunicationController{
         return await CommunicationController.treestRequest(endPoint, parameter);
     }
 
+    static async getStations(sid,did) {
+        const endPoint = "getStations.php";
+        const parameter = {sid: sid, uid:did};
+        return await CommunicationController.treestRequest(endPoint, parameter);
+    }
+
     
 }

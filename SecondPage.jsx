@@ -5,12 +5,14 @@ import { Button, Text, StyleSheet, SafeAreaView, TextInput, FlatList} from 'reac
 import Post from './Post';
 import CommunicationController from './CommunicationController';
 import PostWriter from './PostWriter';
+import MapPage from './MapPage';
 
 
 class SecondPage extends React.Component {
 
     state = {
       postWriterVisible : false,
+      mapVisible: false,
       jsonPost: null
     }
     componentDidMount(){
@@ -22,6 +24,12 @@ class SecondPage extends React.Component {
       this.state.postWriterVisible = !this.state.postWriterVisible
       this.setState(this.state)
       console.log("showPostWriter: "+this.state.postWriterVisible)
+    }
+
+    showMap = () => {
+      this.state.mapVisible = !this.state.mapVisible
+      this.setState(this.state)
+      console.log("mapVisible: "+ this.state.mapVisible)
     }
 
     retrievePosts = (did) => {
@@ -37,13 +45,15 @@ class SecondPage extends React.Component {
 
       let line = this.props.line
       let direction = this.props.direction
-      if (!this.state.postWriterVisible && this.state.jsonPost!=null){
+      if (!this.state.postWriterVisible && this.state.jsonPost!=null &&!this.state.mapVisible){
         return <SafeAreaView>
           <Text style={this.styles.title}>{line.terminus1.sname +"\n"+ line.terminus2.sname}</Text>
           <Text style={this.styles.subTitle}>Direzione {direction.sname}</Text>
           <Text style={this.styles.subTitle}>id bacheca = {direction.did}</Text>
           <Button title="indietro" onPress={() => this.props.onBackPressed()}></Button> 
           <Button title="Nuovo post" onPress={() => this.showPostWriter()}></Button>
+          <Button title="Dettagli tratta" onPress={() => this.showMap()}></Button>
+
           
           {<FlatList
             data={this.state.jsonPost.posts}
@@ -59,6 +69,8 @@ class SecondPage extends React.Component {
         return <SafeAreaView>
           {<PostWriter did={direction.did}/>}
         </SafeAreaView>
+      }else if(this.state.mapVisible){
+        return <SafeAreaView>{<MapPage onBackPressed={this.showMap}></MapPage>}</SafeAreaView>
       }else{
         return <SafeAreaView>
           <Text>Aspetto i dati</Text>
