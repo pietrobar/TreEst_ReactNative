@@ -13,22 +13,28 @@ class Post extends React.Component {
         let d = this.props.data.item
         
         sm.getUserPicture(d.author,d.pversion,
-            result => {console.log("risultato", result)
-                if (result.rows.length>0){//se ho una picture aggiornata
-                    console.log("picture: "+queryResult.rows._array[0].value)
-                }else{
+            result => {
+                if (result==null){//image not in db or not most recent
+                    console.log("Retrieving image from server")
                     CommunicationController.getUserPicture("Cez4i87enqRWx32e", d.author)
-                    .then(result => {
-                        this.state.base64Icon+=result.picture
+                    .then(res => {
+                        this.state.base64Icon+=res.picture
                         this.setState(this.state)
+                        //save into db
+                        sm.storeUserPicture(res.uid, res.pversion, res.picture, res=>{}, error=>console.log(error))
                     })
                     .catch(error => console.log(error))
-                    
+                }else{//image in db is the most recent
+                    console.log("setting image from db")
+                    this.state.base64Icon+=result
+                    this.setState(this.state)
                 }
+                
             },
             error => console.log("error", error))
     }
-    
+
+   
     render() {
         let d = this.props.data.item
 

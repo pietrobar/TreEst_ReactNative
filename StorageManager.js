@@ -30,7 +30,15 @@ export default class StorageManager {
         const transaction = (tx) =>{
             const query = "SELECT picture FROM User WHERE userid=? and pversion=?"
             tx.executeSql(query,[userId,pversion],
-                (tx, queryResult)=>{onResult(queryResult)},
+                (tx, queryResult)=>{
+                    if (queryResult.rows.length>0){
+                        if (queryResult.picture!=undefined){
+                            onResult(queryResult.picture)
+                        }else onResult(null)
+                    }else{
+                        onResult(null)//if local version < server version ->null
+                    }
+                    },
                 (tx, error)=>{onError(error)})
         }
         const error = (e) => {onError(e)};
