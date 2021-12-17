@@ -48,7 +48,9 @@ class PostWriter extends React.Component {
                         placeholder="Commento"
                     />
                     <Button title="Pubblica" onPress={()=>this.publishPost()}></Button>
-                <StatusBar style="auto"></StatusBar>                
+                <StatusBar style="auto"></StatusBar>    
+
+                <Button title="Indietro" onPress={()=>this.props.onBackPressed()}></Button>            
             </SafeAreaView>
             
             

@@ -6,7 +6,7 @@ export default class StorageManager {
     }
     initDB(onResult, onError) {
         const transaction = (tx) => {
-            const query = "CREATE TABLE IF NOT EXISTS User (userid int, pversion int, picture varchar(137000))"
+            const query = "CREATE TABLE IF NOT EXISTS User (userid int, pversion int, picture varchar(137000), PRIMARY KEY (userid))"
             tx.executeSql(query,[],
                 (tx, queryResult)=>{onResult(queryResult)},
                 (tx, error)=>{onError(error)})
@@ -17,7 +17,7 @@ export default class StorageManager {
 
     storeUserPicture(userId, pversion, picture, onResult, onError){
         const transaction = (tx) =>{
-            const query = "INSERT INTO User (userid, pversion, picture) values (?,?,?)"
+            const query = "INSERT OR REPLACE INTO User (userid, pversion, picture) values (?,?,?)"
             tx.executeSql(query,[userId,pversion,picture],
                 (tx, queryResult)=>{onResult(queryResult)},
                 (tx, error)=>{onError(error)})

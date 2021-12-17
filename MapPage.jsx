@@ -3,7 +3,6 @@ import React from 'react';
 import * as Location from 'expo-location';
 import { SafeAreaView, Text, StatusBar, Dimensions, StyleSheet, View, Button} from 'react-native';
 import MapView from 'react-native-maps';
-import Marker from 'react-native-maps';
 
 class MapPage extends React.Component {
 
