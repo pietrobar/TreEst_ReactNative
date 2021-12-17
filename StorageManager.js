@@ -31,10 +31,9 @@ export default class StorageManager {
             const query = "SELECT picture FROM User WHERE userid=? and pversion=?"
             tx.executeSql(query,[userId,pversion],
                 (tx, queryResult)=>{
+                
                     if (queryResult.rows.length>0){
-                        if (queryResult.picture!=undefined){
-                            onResult(queryResult.picture)
-                        }else onResult(null)
+                        onResult(queryResult.rows._array[0].picture)
                     }else{
                         onResult(null)//if local version < server version ->null
                     }
