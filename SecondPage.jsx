@@ -70,7 +70,7 @@ class SecondPage extends React.Component {
           {<PostWriter did={direction.did} onBackPressed={this.showPostWriter}/>}
         </SafeAreaView>
       }else if(this.state.mapVisible){
-        return <SafeAreaView>{<MapPage onBackPressed={this.showMap}></MapPage>}</SafeAreaView>
+        return <SafeAreaView>{<MapPage did={this.props.direction.did} onBackPressed={this.showMap}></MapPage>}</SafeAreaView>
       }else{
         return <SafeAreaView>
           <Text>Aspetto i dati</Text>
