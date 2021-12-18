@@ -7,8 +7,8 @@ class Row extends React.Component {
         return(
             <View style={this.styles.container}> 
                 <Text style={this.styles.subTitle}>{l.terminus1.sname + "->" + l.terminus2.sname}</Text>
-                <TouchableOpacity style={this.styles.button}  onPress={() => this.props.onSelection(l,l.terminus1)}><Text>{l.terminus1.sname}</Text></TouchableOpacity>
-                <TouchableOpacity style={this.styles.button}  onPress={() => this.props.onSelection(l,l.terminus2)}><Text>{l.terminus2.sname}</Text></TouchableOpacity>
+                <TouchableOpacity style={this.styles.button}  onPress={() => this.props.onLineSelected(l,l.terminus1)}><Text>{l.terminus1.sname}</Text></TouchableOpacity>
+                <TouchableOpacity style={this.styles.button}  onPress={() => this.props.onLineSelected(l,l.terminus2)}><Text>{l.terminus2.sname}</Text></TouchableOpacity>
             </View>
             
         )

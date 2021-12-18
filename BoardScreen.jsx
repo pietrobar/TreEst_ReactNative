@@ -8,7 +8,7 @@ import PostWriter from './PostWriter';
 import MapPage from './MapPage';
 
 
-class SecondPage extends React.Component {
+class BoardScreen extends React.Component {
 
     state = {
       postWriterVisible : false,
@@ -109,4 +109,4 @@ class SecondPage extends React.Component {
       });
 }
 
-export default SecondPage ;
+export default BoardScreen ;
