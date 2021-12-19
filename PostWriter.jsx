@@ -22,7 +22,7 @@ class PostWriter extends React.Component {
     publishPost = () =>{
         this.setState(this.state)
         console.log("pubblica post")
-        CommunicationController.addPost("Cez4i87enqRWx32e", this.props.did, this.state.delay,this.state.status,this.state.comment)
+        CommunicationController.addPost(global.appState.sid, this.props.did, this.state.delay,this.state.status,this.state.comment)
     }
 
     render() {

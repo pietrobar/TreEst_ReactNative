@@ -59,5 +59,19 @@ export default class CommunicationController{
         return await CommunicationController.treestRequest(endPoint, parameter);
     }
 
+    static async getProfile(sid) {
+        const endPoint = "getProfile.php";
+        const parameter = {sid: sid};
+        return await CommunicationController.treestRequest(endPoint, parameter);
+    }
+
+    static async setProfile(sid, name) {
+        const endPoint = "setProfile.php";
+        const parameter = {sid: sid, name:name};
+        return await CommunicationController.treestRequest(endPoint, parameter);
+    }
+
+
+
     
 }
