@@ -34,7 +34,7 @@ class MapPage extends React.Component {
     }
 
     getStationsFromServer(){
-        CommunicationController.getStations("Cez4i87enqRWx32e",this.props.did).then(
+        CommunicationController.getStations(global.appState.sid,this.props.did).then(
             res=>{
                 console.log("Received stations")
                 this.state.stations=res.stations;

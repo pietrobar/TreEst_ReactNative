@@ -33,7 +33,7 @@ class BoardScreen extends React.Component {
     }
 
     retrievePosts = (did) => {
-      CommunicationController.getPosts("Cez4i87enqRWx32e",did)
+      CommunicationController.getPosts(global.appState.sid,did)
               .then(response=>{
                 console.log("response "+response)
                 this.state.jsonPost=response

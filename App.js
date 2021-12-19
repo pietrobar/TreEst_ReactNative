@@ -8,7 +8,9 @@ import StorageManager from './StorageManager';
 import LinesScreen from './LinesScreen';
 
 
-
+global.appState ={
+  sid:""
+}
 
 class App extends React.Component{
   state = {
@@ -51,7 +53,9 @@ class App extends React.Component{
         console.log("FIRST ACCESS")
         CommunicationController.register().then(result=>{
           console.log("Just Received Sid from server: ", result)
+          global.appState.sid=result.sid
           AsyncStorage.setItem("sid", result.sid).catch(error=>console.log("error: ",error));
+          this.forceUpdate()
         }).catch(error => console.log("Register error: ",error))
         
       }else{
@@ -61,16 +65,21 @@ class App extends React.Component{
             result => console.log("risultato", result),
             error => console.log("error", error)
             );
+
+        //in second access I have to get the sid from the asyncStorage
+        AsyncStorage.getItem("sid").then(res=>{
+          global.appState.sid=res
+          this.forceUpdate()
+        }).catch(e=>console.log(e))
         //in second access the lineInfo COULD be saved in asyncStorage
         AsyncStorage.getItem("lineInfo").then(response=>{
-          console.log("banana", response)
           if (response && Object.keys(response).length != 0 && Object.getPrototypeOf(response) != Object.prototype){
             response = JSON.parse(response)
             this.state.selectedLine = response.line
             this.state.selectedDirection = response.direction
-            this.state.page="BoardScreen"
-            this.setState(this.state)
+            this.state.page="BoardScreen" 
           }
+          this.setState(this.state)
           
         }).catch(error=>console.log(error))
       }
@@ -78,12 +87,12 @@ class App extends React.Component{
   }
 
   render() {
-      if (this.state.page==="LinesScreen"){
+      if (this.state.page==="LinesScreen" &&global.appState.sid!=""){
           return <SafeAreaView>
             {<LinesScreen onLineSelected={this.changePage}></LinesScreen>}
             <StatusBar styles="auto"/>
           </SafeAreaView>;
-      }else if(this.state.page==="BoardScreen"){
+      }else if(this.state.page==="BoardScreen"&&global.appState.sid!=""){
           console.log("rendering second page")
           return <SafeAreaView>
               {<BoardScreen line={this.state.selectedLine} direction={this.state.selectedDirection} onBackPressed={this.changePage}/>}

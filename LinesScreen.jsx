@@ -16,7 +16,7 @@ class LinesScreen extends React.Component{
 
   componentDidMount() {
     //retrieve lines
-    CommunicationController.getLines("Cez4i87enqRWx32e")
+    CommunicationController.getLines(global.appState.sid)
       .then(unmarshalledObj =>{
         this.state.lines=unmarshalledObj.lines
         this.setState(this.state)
