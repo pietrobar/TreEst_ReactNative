@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import {SafeAreaView,FlatList,StyleSheet, Text, View } from 'react-native';
+import {SafeAreaView,Text,StyleSheet } from 'react-native';
 import BoardScreen from './BoardScreen';
 import CommunicationController from './CommunicationController'
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -12,7 +12,7 @@ import LinesScreen from './LinesScreen';
 
 class App extends React.Component{
   state = {
-      page:"LinesScreen",
+      page:"",
       selectedLine: {},
       selectedDirection: {}
   }
@@ -28,7 +28,8 @@ class App extends React.Component{
 
   changePage = (line,direction) =>{
     //when I select a line direction I want to save it in the AsyncStorage 
-    this.savePreferredLineDirection(line, direction)
+    if(line)
+      this.savePreferredLineDirection(line, direction)
     if (this.state.page==="LinesScreen")
         this.state.page="BoardScreen"
     else
@@ -62,6 +63,7 @@ class App extends React.Component{
             );
         //in second access the lineInfo COULD be saved in asyncStorage
         AsyncStorage.getItem("lineInfo").then(response=>{
+          console.log("banana", response)
           if (response && Object.keys(response).length != 0 && Object.getPrototypeOf(response) != Object.prototype){
             response = JSON.parse(response)
             this.state.selectedLine = response.line
@@ -88,6 +90,11 @@ class App extends React.Component{
               
             <StatusBar styles="auto"/>
           </SafeAreaView>;
+      }else{
+        return <SafeAreaView >
+          <Text>Aspetto i dati</Text>
+          <StatusBar styles="auto"/>
+      </SafeAreaView>
       }
       
   }
