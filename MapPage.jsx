@@ -97,7 +97,7 @@ class MapPage extends React.Component {
 
     
     render() {
-       return <SafeAreaView>
+       return <SafeAreaView style={this.styles.container}>
            
            <MapView style={this.styles.map} 
             initialRegion={{
@@ -140,9 +140,11 @@ class MapPage extends React.Component {
     styles = StyleSheet.create({
         
         map: {
-            width: Dimensions.get('window').width,
-            height: "96%",
+            flex:1
         },
+        container:{
+            flex:1
+        }
     });
     
 }

@@ -46,7 +46,7 @@ class BoardScreen extends React.Component {
       let line = this.props.line
       let direction = this.props.direction
       if (!this.state.postWriterVisible && this.state.jsonPost!=null &&!this.state.mapVisible){
-        return <SafeAreaView>
+        return <SafeAreaView style={this.styles.container}>
           <Text style={this.styles.title}>{line.terminus1.sname +"\n"+ line.terminus2.sname}</Text>
           <Text style={this.styles.subTitle}>Direzione {direction.sname}</Text>
           <Text style={this.styles.subTitle}>id bacheca = {direction.did}</Text>
@@ -66,13 +66,13 @@ class BoardScreen extends React.Component {
         </SafeAreaView> 
       }
       else if(this.state.postWriterVisible){
-        return <SafeAreaView>
+        return <SafeAreaView style={this.styles.container}>
           {<PostWriter did={direction.did} onBackPressed={this.showPostWriter}/>}
         </SafeAreaView>
       }else if(this.state.mapVisible){
-        return <SafeAreaView>{<MapPage did={this.props.direction.did} onBackPressed={this.showMap}></MapPage>}</SafeAreaView>
+        return <SafeAreaView style={this.styles.container}>{<MapPage did={this.props.direction.did} onBackPressed={this.showMap}></MapPage>}</SafeAreaView>
       }else{
-        return <SafeAreaView>
+        return <SafeAreaView style={this.styles.container}>
           <Text>Aspetto i dati</Text>
         </SafeAreaView>
       }
@@ -101,9 +101,6 @@ class BoardScreen extends React.Component {
           },
         container:{
             flex:1,
-            justifyContent: "space-between",
-            alignItems: "center",
-            
         },
         
       });

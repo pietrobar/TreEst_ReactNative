@@ -88,32 +88,32 @@ class App extends React.Component{
 
   render() {
       if (this.state.page==="LinesScreen" &&global.appState.sid!=""){
-          return <SafeAreaView>
+          return <SafeAreaView style={this.styles.container}>
             {<LinesScreen onLineSelected={this.changePage}></LinesScreen>}
             <StatusBar styles="auto"/>
           </SafeAreaView>;
       }else if(this.state.page==="BoardScreen"&&global.appState.sid!=""){
           console.log("rendering second page")
-          return <SafeAreaView>
+          return <SafeAreaView style={this.styles.container}>
               {<BoardScreen line={this.state.selectedLine} direction={this.state.selectedDirection} onBackPressed={this.changePage}/>}
               
             <StatusBar styles="auto"/>
           </SafeAreaView>;
       }else{
-        return <SafeAreaView >
+        return <SafeAreaView style={this.styles.container}>
           <Text>Aspetto i dati</Text>
           <StatusBar styles="auto"/>
       </SafeAreaView>
       }
       
   }
+  styles = StyleSheet.create({
+    container: {
+      flex: 1
+    }
+  });
 }
 
-const styles = StyleSheet.create({
-  title: {
-    fontSize: 48,
-    paddingTop: 20 
-  }
-});
+
 
 export default App
