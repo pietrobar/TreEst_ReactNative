@@ -17,16 +17,23 @@ class App extends React.Component{
       selectedDirection: {}
   }
 
+  savePreferredLineDirection(line, direction){
+    this.state.selectedLine=line
+    this.state.selectedDirection = direction
+    const lineInfo = {line:line, direction:direction}
+    console.log("saving in asyncStorage: ", JSON.stringify(lineInfo))
+    AsyncStorage.setItem("lineInfo", JSON.stringify(lineInfo)).then(res=>console.log("saved lineInfo in AsyncStorage"));
+  }
   
 
   changePage = (line,direction) =>{
-      this.state.selectedLine = line
-      this.state.selectedDirection = direction
-      if (this.state.page==="LinesScreen")
-          this.state.page="BoardScreen"
-      else
-          this.state.page="LinesScreen"
-      this.setState(this.state)
+    //when I select a line direction I want to save it in the AsyncStorage 
+    this.savePreferredLineDirection(line, direction)
+    if (this.state.page==="LinesScreen")
+        this.state.page="BoardScreen"
+    else
+        this.state.page="LinesScreen"
+    this.setState(this.state)
   }
 
   
@@ -53,6 +60,17 @@ class App extends React.Component{
             result => console.log("risultato", result),
             error => console.log("error", error)
             );
+        //in second access the lineInfo COULD be saved in asyncStorage
+        AsyncStorage.getItem("lineInfo").then(response=>{
+          if (response && Object.keys(response).length != 0 && Object.getPrototypeOf(response) != Object.prototype){
+            response = JSON.parse(response)
+            this.state.selectedLine = response.line
+            this.state.selectedDirection = response.direction
+            this.state.page="BoardScreen"
+            this.setState(this.state)
+          }
+          
+        }).catch(error=>console.log(error))
       }
     });
   }
@@ -65,10 +83,8 @@ class App extends React.Component{
           </SafeAreaView>;
       }else if(this.state.page==="BoardScreen"){
           console.log("rendering second page")
-          let line = this.state.selectedLine
-          let selectedDirection = this.state.selectedDirection
           return <SafeAreaView>
-              {<BoardScreen line={line} direction={selectedDirection} onBackPressed={this.changePage}/>}
+              {<BoardScreen line={this.state.selectedLine} direction={this.state.selectedDirection} onBackPressed={this.changePage}/>}
               
             <StatusBar styles="auto"/>
           </SafeAreaView>;
