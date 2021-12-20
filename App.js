@@ -87,6 +87,12 @@ class App extends React.Component{
     });
   }
 
+  swapDirection=()=>{
+    let otherDirection = this.state.selectedDirection.did == this.state.selectedLine.terminus1.did ? this.state.selectedLine.terminus2:this.state.selectedLine.terminus1
+    this.savePreferredLineDirection(this.state.selectedLine,otherDirection)
+    this.setState(this.state)
+  }
+
   render() {
       if (this.state.page==="LinesScreen" &&global.appState.sid!=""){
           return <SafeAreaView style={this.styles.container}>
@@ -96,7 +102,7 @@ class App extends React.Component{
       }else if(this.state.page==="BoardScreen"&&global.appState.sid!=""){
           console.log("rendering second page")
           return <SafeAreaView style={this.styles.container}>
-              {<BoardScreen line={this.state.selectedLine} direction={this.state.selectedDirection} onBackPressed={this.changePage}/>}
+              {<BoardScreen line={this.state.selectedLine} direction={this.state.selectedDirection} onSwappedDirection={this.swapDirection} onBackPressed={this.changePage}/>}
               
             <StatusBar styles="auto"/>
           </SafeAreaView>;

@@ -43,6 +43,12 @@ class BoardScreen extends React.Component {
               .catch(error => console.log("errore "+error))
     }
 
+    swapDirection=()=>{
+      this.props.onSwappedDirection()
+      let otherDid = this.props.direction.did == this.props.line.terminus1.did ? this.props.line.terminus2.did:this.props.line.terminus1.did
+      this.retrievePosts(otherDid)
+    }
+
     render() {    
 
       let line = this.props.line
@@ -53,6 +59,7 @@ class BoardScreen extends React.Component {
                             icon={"swap-horizontal-bold"}
                             color={Colors.red500}
                             size={50}
+                            onPress={this.swapDirection}
                         /> { line.terminus2.sname}</Text>
           
           <Text style={this.styles.subTitle}>Direzione {direction.sname}</Text>
