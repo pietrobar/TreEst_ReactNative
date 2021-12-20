@@ -57,7 +57,6 @@ class App extends React.Component{
           AsyncStorage.setItem("sid", result.sid).catch(error=>console.log("error: ",error));
           this.state.page="LinesSelected"
           this.setState(this.state)
-          //todo: dovrei fare in modo di mettere la pagina = LinesScreen
         }).catch(error => console.log("Register error: ",error))
         
       }else{
