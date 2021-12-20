@@ -65,9 +65,16 @@ export default class CommunicationController{
         return await CommunicationController.treestRequest(endPoint, parameter);
     }
 
-    static async setProfile(sid, name) {
+    static async setProfile(sid, name, picture, nameHasChanged, pictureHasChanged) {
         const endPoint = "setProfile.php";
-        const parameter = {sid: sid, name:name};
+        const parameter = {sid: sid};
+        if(nameHasChanged){
+            parameter.name=name
+        }
+        if(pictureHasChanged){
+            parameter.picture=picture
+        }
+        console.log("banana", parameter)
         return await CommunicationController.treestRequest(endPoint, parameter);
     }
 
