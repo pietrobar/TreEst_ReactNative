@@ -6,6 +6,8 @@ import Post from './Post';
 import CommunicationController from './CommunicationController';
 import PostWriter from './PostWriter';
 import MapPage from './MapPage';
+import { IconButton, Colors } from 'react-native-paper';
+
 
 
 class BoardScreen extends React.Component {
@@ -47,7 +49,12 @@ class BoardScreen extends React.Component {
       let direction = this.props.direction
       if (!this.state.postWriterVisible && this.state.jsonPost!=null &&!this.state.mapVisible){
         return <SafeAreaView style={this.styles.container}>
-          <Text style={this.styles.title}>{line.terminus1.sname +"\n"+ line.terminus2.sname}</Text>
+          <Text style={this.styles.title}>{line.terminus1.sname }<IconButton
+                            icon={"swap-horizontal-bold"}
+                            color={Colors.red500}
+                            size={50}
+                        /> { line.terminus2.sname}</Text>
+          
           <Text style={this.styles.subTitle}>Direzione {direction.sname}</Text>
           <Text style={this.styles.subTitle}>id bacheca = {direction.did}</Text>
           <Button title="indietro" onPress={() => this.props.onBackPressed()}></Button> 
