@@ -53,14 +53,16 @@ class BoardScreen extends React.Component {
 
       let line = this.props.line
       let direction = this.props.direction
+      let start = direction.did == line.terminus1.did ? line.terminus2.sname : line.terminus1.sname
+      let end = direction.did == line.terminus2.did ? line.terminus2.sname : line.terminus1.sname
       if (!this.state.postWriterVisible && this.state.jsonPost!=null &&!this.state.mapVisible){
         return <SafeAreaView style={this.styles.container}>
-          <Text style={this.styles.title}>{line.terminus1.sname }<IconButton
+          <Text style={this.styles.title}>{start }<IconButton
                             icon={"swap-horizontal-bold"}
                             color={Colors.red500}
                             size={50}
                             onPress={this.swapDirection}
-                        /> { line.terminus2.sname}</Text>
+                        /> { end}</Text>
           
           <Text style={this.styles.subTitle}>Direzione {direction.sname}</Text>
           <Text style={this.styles.subTitle}>id bacheca = {direction.did}</Text>
