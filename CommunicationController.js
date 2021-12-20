@@ -78,6 +78,18 @@ export default class CommunicationController{
         return await CommunicationController.treestRequest(endPoint, parameter);
     }
 
+    static async unfollow(sid, uid) {
+        const endPoint = "unfollow.php";
+        const parameter = {sid: sid, uid:uid};
+        return await CommunicationController.treestRequest(endPoint, parameter);
+    }
+
+    static async follow(sid, uid) {
+        const endPoint = "follow.php";
+        const parameter = {sid: sid, uid:uid};
+        return await CommunicationController.treestRequest(endPoint, parameter);
+    }
+
 
 
     

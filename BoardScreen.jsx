@@ -57,7 +57,7 @@ class BoardScreen extends React.Component {
           
           {<FlatList
             data={this.state.jsonPost.posts}
-            renderItem={(item) => {return (<Post data={item}/>)}}
+            renderItem={(item) => {return (<Post data={item} refreshPosts={this.retrievePosts} did={this.props.direction.did}/>)}}
             keyExtractor={item => item.datetime}
           />}
             
