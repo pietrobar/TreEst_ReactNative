@@ -31,6 +31,7 @@ class PostWriter extends React.Component {
         this.setState(this.state)
         console.log("pubblica post")
         CommunicationController.addPost(global.appState.sid, this.props.did, this.state.delay,this.state.status,this.state.comment)
+        this.props.onBackPressed()
     }
 
     showHideDialog = () =>{

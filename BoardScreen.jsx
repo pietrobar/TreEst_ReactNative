@@ -26,6 +26,9 @@ class BoardScreen extends React.Component {
       this.state.postWriterVisible = !this.state.postWriterVisible
       this.setState(this.state)
       console.log("showPostWriter: "+this.state.postWriterVisible)
+
+        this.retrievePosts(this.props.direction.did)
+      
     }
 
     showMap = () => {
