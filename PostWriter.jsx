@@ -1,11 +1,14 @@
 import React from 'react';
 import { StyleSheet, SafeAreaView, TextInput, Text, Button, StatusBar} from 'react-native';
 import CommunicationController from './CommunicationController';
+import Dialog from "react-native-dialog";
+
 class PostWriter extends React.Component {
     state = {
         delay : "",
         status : "",
-        comment : ""
+        comment : "",
+        commentDialogVisible : false
     }
 
     setDelay = (value) =>{
@@ -16,7 +19,12 @@ class PostWriter extends React.Component {
         this.state.status = value
     }
     setComment = (value) =>{
-        this.state.comment = value
+        if(value.length<101){
+            this.state.comment = value
+        }else
+            this.showHideDialog()
+
+            
     }
 
     publishPost = () =>{
@@ -24,6 +32,12 @@ class PostWriter extends React.Component {
         console.log("pubblica post")
         CommunicationController.addPost(global.appState.sid, this.props.did, this.state.delay,this.state.status,this.state.comment)
     }
+
+    showHideDialog = () =>{
+        this.state.commentDialogVisible = !this.state.commentDialogVisible
+        this.setState(this.state)
+    }
+    
 
     render() {
         return(
@@ -50,7 +64,16 @@ class PostWriter extends React.Component {
                     <Button title="Pubblica" onPress={()=>this.publishPost()}></Button>
                 <StatusBar style="auto"></StatusBar>    
 
-                <Button title="Indietro" onPress={()=>this.props.onBackPressed()}></Button>            
+                <Button title="Indietro" onPress={()=>this.props.onBackPressed()}></Button>   
+
+
+
+
+
+                <Dialog.Container visible={this.state.commentDialogVisible}>
+                <Dialog.Title>I commenti non possono superare 100 caratteri</Dialog.Title>
+                <Dialog.Button label="OK  " onPress={this.showHideDialog}/>
+                </Dialog.Container>         
             </SafeAreaView>
             
             

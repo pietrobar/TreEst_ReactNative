@@ -62,7 +62,6 @@ class ProfileSettingScreen extends React.Component {
         }
     
         let pickerResult = await ImagePicker.launchImageLibraryAsync({"base64":true});
-        //todo: controlla che l'immagine abbia formato e taglia corretti
         console.log("banana",pickerResult)
         if(pickerResult.base64){
             if(pickerResult.base64.length<137000 && pickerResult.height==pickerResult.width){
@@ -70,14 +69,14 @@ class ProfileSettingScreen extends React.Component {
                 this.setState(this.state)
                 this.state.pictureHasChanged=true
             }else{
-                this.showHideDialog()
+                this.showHideImageDialog()
             }
             
         }
         
       }
     
-    showHideDialog= ()=>{
+    showHideImageDialog= ()=>{
         this.state.wrongImageDialogVisible = !this.state.wrongImageDialogVisible
         this.setState(this.state)
     }
@@ -106,7 +105,7 @@ class ProfileSettingScreen extends React.Component {
 
                 <Dialog.Container visible={this.state.wrongImageDialogVisible}>
                 <Dialog.Title>L'immagine è troppo grande o non è quadrata</Dialog.Title>
-                <Dialog.Button label="OK  " onPress={this.showHideDialog}/>
+                <Dialog.Button label="OK  " onPress={this.showHideImageDialog}/>
                 </Dialog.Container>
 
                 <Dialog.Container visible={this.state.wrongNameDialogVisible}>
