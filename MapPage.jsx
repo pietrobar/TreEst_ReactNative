@@ -57,42 +57,42 @@ class MapPage extends React.Component {
 
     }
 
-    getNearestStation = () =>{
-        if (this.state.nearesStation!=null) return this.state.nearesStation
-        let minDistanceYet=Number.MAX_SAFE_INTEGER
-        let nearestStation = null
-        this.state.stations.forEach(station => {
-            const start = {"latitude": parseFloat(station.lat),"longitude": parseFloat(station.lon)}
-            const end = this.state.defaultCoord;
-            let dist = this.getDistanceFromLatLonInKm(start.latitude, start.longitude, end.latitude, end.longitude)
-            if(dist<minDistanceYet){
-                minDistanceYet = dist
-                nearestStation = station
-            }
+    // getNearestStation = () =>{
+    //     if (this.state.nearesStation!=null) return this.state.nearesStation
+    //     let minDistanceYet=Number.MAX_SAFE_INTEGER
+    //     let nearestStation = null
+    //     this.state.stations.forEach(station => {
+    //         const start = {"latitude": parseFloat(station.lat),"longitude": parseFloat(station.lon)}
+    //         const end = this.state.defaultCoord;
+    //         let dist = this.getDistanceFromLatLonInKm(start.latitude, start.longitude, end.latitude, end.longitude)
+    //         if(dist<minDistanceYet){
+    //             minDistanceYet = dist
+    //             nearestStation = station
+    //         }
             
-        });
-        console.log("nearest station: ", nearestStation)
-        return nearestStation
+    //     });
+    //     console.log("nearest station: ", nearestStation)
+    //     return nearestStation
 
-    }
+    // }
 
-    getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
-        var R = 6371; // Radius of the earth in km
-        var dLat = this.deg2rad(lat2-lat1);  // this.deg2rad below
-        var dLon = this.deg2rad(lon2-lon1); 
-        var a = 
-          Math.sin(dLat/2) * Math.sin(dLat/2) +
-          Math.cos(this.deg2rad(lat1)) * Math.cos(this.deg2rad(lat2)) * 
-          Math.sin(dLon/2) * Math.sin(dLon/2)
-          ; 
-        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
-        var d = R * c; // Distance in km
-        return d;
-      }
+    // getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
+    //     var R = 6371; // Radius of the earth in km
+    //     var dLat = this.deg2rad(lat2-lat1);  // this.deg2rad below
+    //     var dLon = this.deg2rad(lon2-lon1); 
+    //     var a = 
+    //       Math.sin(dLat/2) * Math.sin(dLat/2) +
+    //       Math.cos(this.deg2rad(lat1)) * Math.cos(this.deg2rad(lat2)) * 
+    //       Math.sin(dLon/2) * Math.sin(dLon/2)
+    //       ; 
+    //     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+    //     var d = R * c; // Distance in km
+    //     return d;
+    //   }
       
-      deg2rad(deg) {
-        return deg * (Math.PI/180)
-      }
+    //   deg2rad(deg) {
+    //     return deg * (Math.PI/180)
+    //   }
 
 
     
@@ -105,13 +105,15 @@ class MapPage extends React.Component {
                 longitude: this.state.defaultCoord.longitude,
                 latitudeDelta: 1,
                 longitudeDelta: 1,
-                }}>
+                }}
+                showsUserLocation={true}
+                >
             {this.state.stations.map((station) => (
                 <MapView.Marker
                 key={station.sname}
                 coordinate={{latitude: parseFloat(station.lat), longitude: parseFloat(station.lon)}}
                 title={station.sname}
-                pinColor={this.getNearestStation()==station?"blue":this.state.stations.indexOf(station)==0 || this.state.stations.indexOf(station)==this.state.stations.length-1?"green":"red"}//override nearest station color
+                //pinColor={this.getNearestStation()==station?"blue":this.state.stations.indexOf(station)==0 || this.state.stations.indexOf(station)==this.state.stations.length-1?"green":"red"}//override nearest station color
                 />
                 ))}
             
