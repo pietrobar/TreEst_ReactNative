@@ -1,7 +1,7 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 
-import { Button, Text, StyleSheet, SafeAreaView, TextInput, FlatList} from 'react-native';
+import { Button, Text, StyleSheet, SafeAreaView, FlatList, View} from 'react-native';
 import Post from './Post';
 import CommunicationController from './CommunicationController';
 import PostWriter from './PostWriter';
@@ -60,28 +60,36 @@ class BoardScreen extends React.Component {
       let end = direction.did == line.terminus2.did ? line.terminus2.sname : line.terminus1.sname
       if (!this.state.postWriterVisible && this.state.jsonPost!=null &&!this.state.mapVisible){
         return <SafeAreaView style={this.styles.container}>
-          <Text style={this.styles.title}>{start }<IconButton
-                            icon={"swap-horizontal-bold"}
-                            color={Colors.red500}
-                            size={50}
-                            onPress={this.swapDirection}
-                        /> { end}</Text>
+          <View style={this.styles.directionContainer}>
+            <Text style={this.styles.title}>{start}</Text>
+            <IconButton
+                              icon={"swap-horizontal-bold"}
+                              color={Colors.red500}
+                              size={50}
+                              onPress={this.swapDirection}
+                          /> 
+            <Text style={this.styles.title}>{ end}</Text>
+          </View>
           
-          <Text style={this.styles.subTitle}>Direzione {direction.sname}</Text>
-          <Text style={this.styles.subTitle}>id bacheca = {direction.did}</Text>
-          <Button title="indietro" onPress={() => this.props.onBackPressed()}></Button> 
-          <Button title="Nuovo post" onPress={() => this.showPostWriter()}></Button>
-          <Button title="Dettagli tratta" onPress={() => this.showMap()}></Button>
+          
+          
+          
 
+          <View style={this.styles.list}>
+            {<FlatList
+              data={this.state.jsonPost.posts}
+              renderItem={(item) => {return (<Post data={item} refreshPosts={this.retrievePosts} did={this.props.direction.did}/>)}}
+              keyExtractor={item => item.datetime}
+            />}
+          </View>
           
-          {<FlatList
-            data={this.state.jsonPost.posts}
-            renderItem={(item) => {return (<Post data={item} refreshPosts={this.retrievePosts} did={this.props.direction.did}/>)}}
-            keyExtractor={item => item.datetime}
-          />}
-            
+          <View style={this.styles.buttonMenu}>
+            <Button title="Cambia linea" onPress={() => this.props.onBackPressed()}></Button> 
+            <Button title="Nuovo Post" onPress={() => this.showPostWriter()}></Button>
+            <Button title="Mappa" onPress={() => this.showMap()}></Button>
         
-          <StatusBar styles="auto"/>
+          </View>
+          
         </SafeAreaView> 
       }
       else if(this.state.postWriterVisible){
@@ -106,8 +114,8 @@ class BoardScreen extends React.Component {
 
     styles = StyleSheet.create({
         title: {
-            fontSize: 48,
-            paddingTop: 20,
+            fontSize: 40,
+            width:"40%",
           },
         subTitle: {
           fontSize: 20,
@@ -120,7 +128,25 @@ class BoardScreen extends React.Component {
           },
         container:{
             flex:1,
+            paddingTop:20,
+            flexDirection: "column"
         },
+        directionContainer:{
+          flex:1.2,
+          flexDirection: "row",
+          justifyContent: "space-evenly",
+          flexWrap: "wrap"
+        },
+        buttonMenu:{
+          flex:.4,
+          paddingTop:10,
+          paddingBottom:10,
+          flexDirection: "row",
+          justifyContent: "space-evenly",
+        },
+        list:{
+          flex:8
+        }
         
       });
 }
