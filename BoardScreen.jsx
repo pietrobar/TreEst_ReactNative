@@ -1,7 +1,7 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 
-import { Button, Text, StyleSheet, SafeAreaView, FlatList, View} from 'react-native';
+import { Button, Text, StyleSheet, SafeAreaView, FlatList, View, TouchableOpacity} from 'react-native';
 import Post from './Post';
 import CommunicationController from './CommunicationController';
 import PostWriter from './PostWriter';
@@ -84,9 +84,10 @@ class BoardScreen extends React.Component {
           </View>
           
           <View style={this.styles.buttonMenu}>
-            <Button title="Cambia linea" onPress={() => this.props.onBackPressed()}></Button> 
-            <Button title="Nuovo Post" onPress={() => this.showPostWriter()}></Button>
-            <Button title="Mappa" onPress={() => this.showMap()}></Button>
+            <View style={this.styles.button}><TouchableOpacity onPress={() => this.props.onBackPressed()}><Text>Cambia linea</Text></TouchableOpacity></View>
+            <View style={this.styles.button}><TouchableOpacity onPress={() => this.showPostWriter()}><Text>Nuovo Post</Text></TouchableOpacity></View>
+            <View style={this.styles.button}><TouchableOpacity onPress={() => this.showMap()}><Text>Mappa</Text></TouchableOpacity></View>
+            
         
           </View>
           
@@ -117,15 +118,6 @@ class BoardScreen extends React.Component {
             fontSize: 40,
             width:"40%",
           },
-        subTitle: {
-          fontSize: 20,
-          paddingTop: 10,
-        },
-        button: {
-            backgroundColor: "#DDDDDD",
-            padding: 10,
-            width: 400
-          },
         container:{
             flex:1,
             paddingTop:20,
@@ -138,15 +130,21 @@ class BoardScreen extends React.Component {
           flexWrap: "wrap"
         },
         buttonMenu:{
-          flex:.4,
-          paddingTop:10,
-          paddingBottom:10,
+          flex:.5,
           flexDirection: "row",
-          justifyContent: "space-evenly",
+          alignItems: 'center',
+          justifyContent: 'center',
         },
         list:{
           flex:8
-        }
+        },
+        button: {
+          alignItems: "center",
+          backgroundColor: "#DDDDDD",
+          padding:10,
+          flex: 1,
+          margin:2
+        },
         
       });
 }
