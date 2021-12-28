@@ -58,14 +58,15 @@ class App extends React.Component{
           this.state.page="LinesScreen"
           this.setState(this.state)
         }).catch(error => console.log("Register error: ",error))
-        
-      }else{
-        console.log("SECOND ACCESS")
         let sm = new StorageManager();
         sm.initDB(
             result => console.log("risultato", result),
             error => console.log("error", error)
             );
+        
+      }else{
+        console.log("SECOND ACCESS")
+        
 
         //in second access I have to get the sid from the asyncStorage
         AsyncStorage.getItem("sid").then(res=>{
