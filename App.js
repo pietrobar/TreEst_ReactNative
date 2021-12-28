@@ -55,7 +55,7 @@ class App extends React.Component{
           console.log("Just Received Sid from server: ", result)
           global.appState.sid=result.sid
           AsyncStorage.setItem("sid", result.sid).catch(error=>console.log("error: ",error));
-          this.state.page="LinesSelected"
+          this.state.page="LinesScreen"
           this.setState(this.state)
         }).catch(error => console.log("Register error: ",error))
         
