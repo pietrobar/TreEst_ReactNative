@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View ,Text,StyleSheet, Image} from 'react-native';
+import { View ,Text,StyleSheet, ImageBackground, Touchable, TouchableHighlight} from 'react-native';
 import CommunicationController from './CommunicationController';
 import StorageManager from './StorageManager';
 import { IconButton, Colors } from 'react-native-paper';
@@ -61,23 +61,38 @@ class Post extends React.Component {
         return(
             <View>
                 {
-                    <View>
-                        <Text>Delay: { d.delay}</Text>
-                        <Text>Status: {d.status}</Text>
-                        <Text>Comments: {d.comment}</Text>
-                        <Text>followingAuthor: {d.followingAuthor ? "true" : "false"}</Text>
-                        <Text>datetime: {d.datetime}</Text>
-                        <Text>authorName: {d.authorName}</Text>
-                        <Text>pversion: {d.pversion}</Text>
-                        <Text>author: {d.author}</Text>
-                        <Image style={{width: 50, height: 50}} source={{uri: this.state.base64Icon}}/>
-                        <IconButton
-                            icon={d.followingAuthor?this.state.followIcon.minus:this.state.followIcon.plus}
-                            color={Colors.red500}
-                            size={50}
-                            onPress={() => this.followUnfollow(d.followingAuthor, d.author)}
-                        />
-                        <Text>-------------------------------------------</Text>
+                    <View style={this.styles.post}>
+                        <View style={this.styles.postHeader}>
+                            <View style={this.styles.authorInfo}>
+                                
+                                <TouchableHighlight onPress={() => this.followUnfollow(d.followingAuthor, d.author)}>
+                                <ImageBackground style={{width: 80, height: 80}} source={{uri: this.state.base64Icon}}>
+                                    <IconButton style={{position:"absolute", left:-20, top:-20}}
+                                    icon={d.followingAuthor?this.state.followIcon.minus:this.state.followIcon.plus}
+                                    color={Colors.red500}
+                                    size={30}
+                                    />
+                                </ImageBackground>
+                                </TouchableHighlight>
+                                
+                                <Text style={this.styles.importantText}>{d.authorName}</Text>
+                            </View>
+                            <View style={this.styles.postContent}>
+                                <Text>Ritardo: { d.delay}</Text>
+                                <Text>Stato: {d.status}</Text>
+                                <Text>Commento: {d.comment}</Text>
+                            </View>
+                        
+                            
+                        </View>
+                        
+                        
+                        
+                        
+                        
+                        <Text>{d.datetime.substr(0, d.datetime.indexOf('.')) }</Text>
+                        
+                        
                     </View>
                     
                 }
@@ -88,25 +103,31 @@ class Post extends React.Component {
                   
     }
     styles = StyleSheet.create({
-        title: {
-            fontSize: 48,
-            paddingTop: 20,
-          },
-        subTitle: {
-          fontSize: 20,
-          paddingTop: 10,
+        
+        post: {
+            margin: 12,
+            padding: 12,
+            borderRadius: 8,
+            backgroundColor: "#eeeeee",
+            flex:1
         },
-        button: {
-            backgroundColor: "#DDDDDD",
-            padding: 10,
-            width: 400
-          },
-        container:{
-            flex:1,
-            justifyContent: "space-between",
-            alignItems: "center",
-            
+        postHeader:{
+            flexDirection:"row",
+            flex:1
+        },
+        authorInfo:{
+            alignItems:"center",
+            flex:1
+        },
+        importantText:{
+            fontSize: 24
+        },
+        postContent:{
+            flex:2,
+            flexDirection:'column',
+            paddingLeft:30
         }
+
       });
 }
 
