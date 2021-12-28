@@ -9,7 +9,8 @@ import LinesScreen from './LinesScreen';
 
 
 global.appState ={
-  sid:""
+  sid:"",
+  uid:""
 }
 
 class App extends React.Component{
@@ -57,13 +58,19 @@ class App extends React.Component{
           AsyncStorage.setItem("sid", result.sid).catch(error=>console.log("error: ",error));
           this.state.page="LinesScreen"
           this.setState(this.state)
+
+          CommunicationController.getProfile(result.sid).then(
+            res=>{
+              global.appState.uid=res.uid
+              AsyncStorage.setItem("uid", res.uid).catch(error=>console.log("error: ",error));
+            }
+          ).catch(error=>console.log(error))
         }).catch(error => console.log("Register error: ",error))
         let sm = new StorageManager();
         sm.initDB(
             result => console.log("risultato", result),
             error => console.log("error", error)
-            );
-        
+            );        
       }else{
         console.log("SECOND ACCESS")
         
