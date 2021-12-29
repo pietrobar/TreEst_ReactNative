@@ -1,14 +1,21 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 
-import { Button, Text, StyleSheet, SafeAreaView, FlatList, View, TouchableOpacity} from 'react-native';
+import { Dimensions, Text, StyleSheet, SafeAreaView, FlatList, View, TouchableOpacity} from 'react-native';
 import Post from './Post';
 import CommunicationController from './CommunicationController';
 import PostWriter from './PostWriter';
 import MapPage from './MapPage';
 import { IconButton, Colors } from 'react-native-paper';
 
+const SCREEN_WIDTH = Dimensions.get('window').width; // get current width
+const SCALE = 375; 
 
+const scaleFontSize = (fontSize) => {
+    const ratio = fontSize / SCALE; // get ratio based on your standard scale 
+    const newSize = Math.round(ratio * SCREEN_WIDTH);
+    return newSize; 
+}
 
 class BoardScreen extends React.Component {
 
@@ -123,7 +130,7 @@ class BoardScreen extends React.Component {
 
     styles = StyleSheet.create({
         title: {
-            fontSize: 40,
+            fontSize: scaleFontSize(30),
           },
         container:{
             flex:1,
@@ -131,16 +138,15 @@ class BoardScreen extends React.Component {
             flexDirection: "column"
         },
         directionContainer:{
-          flex:1.2,
+          flex:2,
           flexDirection: "row",
           justifyContent: "space-evenly",
           flexWrap: "wrap"
         },
         buttonMenu:{
-          flex:.5,
+          flex:1,
           flexDirection: "row",
-          alignItems: 'center',
-          justifyContent: 'center',
+          alignItems: "flex-end",
         },
         list:{
           flex:8
