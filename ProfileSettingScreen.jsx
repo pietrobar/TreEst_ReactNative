@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { SafeAreaView , View, StyleSheet, Image, Button,TextInput, TouchableOpacity} from 'react-native';
+import { SafeAreaView , View, StyleSheet, Image, Text,TextInput, TouchableOpacity} from 'react-native';
 import CommunicationController from './CommunicationController';
 import * as ImagePicker from 'expo-image-picker';
 import Dialog from "react-native-dialog";
@@ -91,17 +91,18 @@ class ProfileSettingScreen extends React.Component {
         
 
         return(
-            <SafeAreaView style={this.styles.container}>
-                <TouchableOpacity onPress={this.openImagePickerAsync} style={this.styles.container}>
-                    <Image style={{width: "100%", height: "50%"}} source={{uri: this.state.picturePrefix+this.state.picture}} />
+            <SafeAreaView style={{flex:1, marginTop:"10%", alignItems:"center"}}>
+                <TouchableOpacity onPress={this.openImagePickerAsync} style={{flex:3, width:"90%"}}>
+                    <Image style={{height:"100%", width:"100%"}} source={{uri: this.state.picturePrefix+this.state.picture}} />
                 </TouchableOpacity>
                 <TextInput
                         style={this.styles.input}
                         onChangeText={val => this.setUsername(val)}
                         placeholder={this.state.name}
                     />
-                <Button title='Annulla' onPress={() => this.props.onBackPressed()}></Button>
-                <Button title='Salva' onPress={()=>this.saveProfile()}></Button>
+                <TouchableOpacity style={this.styles.button} onPress={() => this.props.onBackPressed()}><Text>Annulla</Text></TouchableOpacity>
+                <TouchableOpacity style={this.styles.button} onPress={()=>this.saveProfile()}><Text>Salva</Text></TouchableOpacity>
+
 
                 <Dialog.Container visible={this.state.wrongImageDialogVisible}>
                 <Dialog.Title>L'immagine è troppo grande o non è quadrata</Dialog.Title>
@@ -112,6 +113,9 @@ class ProfileSettingScreen extends React.Component {
                 <Dialog.Title>Il nome non deve superare 20 caratteri</Dialog.Title>
                 <Dialog.Button label="OK  " onPress={this.showHideNameDialog}/>
                 </Dialog.Container>
+                <View style={{flex:2}}>
+
+                </View>
 
             </SafeAreaView>
         )
@@ -121,29 +125,23 @@ class ProfileSettingScreen extends React.Component {
     }
 
     styles = StyleSheet.create({
-        title: {
-            fontSize: 48,
-            paddingTop: 20,
-          },
-        subTitle: {
-          fontSize: 20,
-          paddingTop: 10,
-        },
-        button: {
-            backgroundColor: "#DDDDDD",
-            padding: 10,
-            width: 400
-          },
-        container:{
-            flex:1,
-
-        },
+        
+        
+        
         input: {
-            height: 40,
+            flex:.3,
             margin: 12,
             borderWidth: 1,
             padding: 10,
+            width:"90%"
           },
+          button: {
+            alignItems: "center",
+            backgroundColor: "#DDDDDD",
+            padding: 10,
+            width: "90%",
+            marginTop:10
+          }
       });
     
 }

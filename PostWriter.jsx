@@ -67,7 +67,7 @@ class PostWriter extends React.Component {
                 <SafeAreaView style={{marginTop:"30%", alignItems:"center"}}> 
                     <View style={{flexDirection:"row", width:"90%"}}>
                         <SelectDropdown
-                            buttonStyle={{flex:1}}
+                            buttonStyle={{flex:1, marginLeft:5}}
                             defaultButtonText="Ritardo"
                             data={Object.values(this.delayValues)}
                             onSelect={(selectedItem, index) => {
@@ -81,7 +81,7 @@ class PostWriter extends React.Component {
                             }}
                         />
                         <SelectDropdown
-                            buttonStyle={{flex:1}}
+                            buttonStyle={{flex:1, marginRight:5}}
                             defaultButtonText="Stato"
                             data={Object.values(this.statusValues)}
                             onSelect={(selectedItem, index) => {
@@ -155,7 +155,8 @@ class PostWriter extends React.Component {
             alignItems: "center",
             backgroundColor: "#DDDDDD",
             padding: 10,
-            width: "90%"
+            width: "90%",
+            marginTop:10
           }
       });
 }
