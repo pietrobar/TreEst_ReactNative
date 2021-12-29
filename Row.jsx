@@ -24,7 +24,7 @@ class Row extends React.Component {
             alignItems: "center",
             backgroundColor: "#DDDDDD",
             padding: 10,
-            width: 400
+            width: "90%"
           },
         container:{
             flex:1,

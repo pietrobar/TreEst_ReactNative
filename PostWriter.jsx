@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, SafeAreaView, TextInput, Text, Button, StatusBar} from 'react-native';
+import { StyleSheet, SafeAreaView, TextInput, Text, Button, StatusBar, View, TouchableOpacity} from 'react-native';
 import CommunicationController from './CommunicationController';
 import Dialog from "react-native-dialog";
 import SelectDropdown from 'react-native-select-dropdown'
@@ -25,7 +25,7 @@ class PostWriter extends React.Component {
         if(value.length<101){
             this.state.comment = value
         }else
-            this.showHideDialog()
+            this.showHideLongCommentDialog()
 
             
     }
@@ -64,45 +64,49 @@ class PostWriter extends React.Component {
 
     render() {
         return(
-                <SafeAreaView style={{marginTop:40}}> 
-                    <SelectDropdown
-                        defaultButtonText="Ritardo"
-                        data={Object.values(this.delayValues)}
-                        onSelect={(selectedItem, index) => {
-                            this.setDelay(index)
-                        }}
-                        buttonTextAfterSelection={(selectedItem, index) => {
-                            return selectedItem
-                        }}
-                        rowTextForSelection={(item, index) => {
-                            return item
+                <SafeAreaView style={{marginTop:"30%", alignItems:"center"}}> 
+                    <View style={{flexDirection:"row", width:"90%"}}>
+                        <SelectDropdown
+                            buttonStyle={{flex:1}}
+                            defaultButtonText="Ritardo"
+                            data={Object.values(this.delayValues)}
+                            onSelect={(selectedItem, index) => {
+                                this.setDelay(index)
+                            }}
+                            buttonTextAfterSelection={(selectedItem, index) => {
+                                return selectedItem
+                            }}
+                            rowTextForSelection={(item, index) => {
+                                return item
+                            }}
+                        />
+                        <SelectDropdown
+                            buttonStyle={{flex:1}}
+                            defaultButtonText="Stato"
+                            data={Object.values(this.statusValues)}
+                            onSelect={(selectedItem, index) => {
+                                this.setStatus(index)
+                            }}
+                            buttonTextAfterSelection={(selectedItem, index) => {
+                                return selectedItem
+                            }}
+                            rowTextForSelection={(item, index) => {
+                                return item
 
-                        }}
-                    />
-                    <SelectDropdown
-                        defaultButtonText="Stato"
-                        data={Object.values(this.statusValues)}
-                        onSelect={(selectedItem, index) => {
-                            this.setStatus(index)
-                        }}
-                        buttonTextAfterSelection={(selectedItem, index) => {
-                            return selectedItem
-                        }}
-                        rowTextForSelection={(item, index) => {
-                            return item
-
-                        }}
-                    />
+                            }}
+                        />
+                    </View>
+                   
                     
                     <TextInput
                         style={this.styles.commentInput}
                         onChangeText={val => this.setComment(val)}
                         placeholder="Commento"
+                        multiline={true}
                     />
-                    <Button title="Pubblica" onPress={()=>this.publishPost()}></Button>
-                <StatusBar style="auto"></StatusBar>    
+                <TouchableOpacity style={this.styles.button} onPress={()=>this.publishPost()}><Text>Pubblica</Text></TouchableOpacity>
 
-                <Button title="Indietro" onPress={()=>this.props.onBackPressed()}></Button>   
+                <TouchableOpacity style={this.styles.button} onPress={()=>this.props.onBackPressed()}><Text>Indietro</Text></TouchableOpacity>   
 
 
 
@@ -145,7 +149,14 @@ class PostWriter extends React.Component {
             margin: 12,
             borderWidth: 1,
             padding: 10,
-        }
+            width: "90%"
+        },
+        button: {
+            alignItems: "center",
+            backgroundColor: "#DDDDDD",
+            padding: 10,
+            width: "90%"
+          }
       });
 }
 
