@@ -1,7 +1,7 @@
 import React from 'react';
 
 import * as Location from 'expo-location';
-import { SafeAreaView, Text, StatusBar, Dimensions, StyleSheet, View, Button} from 'react-native';
+import { SafeAreaView, Text, StatusBar, Dimensions, StyleSheet, View, Button, TouchableOpacity} from 'react-native';
 import MapView from 'react-native-maps';
 import CommunicationController from './CommunicationController';
 
@@ -100,12 +100,13 @@ class MapPage extends React.Component {
        return <SafeAreaView style={this.styles.container}>
            
            <MapView style={this.styles.map} 
-            initialRegion={{
+            region={{
                 latitude: this.state.defaultCoord.latitude,
                 longitude: this.state.defaultCoord.longitude,
                 latitudeDelta: 1,
                 longitudeDelta: 1,
                 }}
+            
                 showsUserLocation={true}
                 >
             {this.state.stations.map((station) => (
@@ -130,8 +131,7 @@ class MapPage extends React.Component {
        
        
        
-       <StatusBar styles="auto"/>
-       <Button title="Indietro" onPress={() => this.props.onBackPressed()}></Button>
+       <TouchableOpacity style={this.styles.button} onPress={() => this.props.onBackPressed()}><Text>Indietro</Text></TouchableOpacity>
 
 
      </SafeAreaView>
@@ -146,7 +146,13 @@ class MapPage extends React.Component {
         },
         container:{
             flex:1
-        }
+        },
+        button: {
+            alignItems: "center",
+            backgroundColor: "#DDDDDD",
+            padding: 10,
+            width: "100%",
+          }
     });
     
 }
