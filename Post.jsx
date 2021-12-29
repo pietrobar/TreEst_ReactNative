@@ -62,6 +62,19 @@ class Post extends React.Component {
         
 
     }
+
+    delayTranslator = {
+        0:"Ritardo: in orario",
+        1:"Ritardo: ritardo lieve",
+        2:"Ritardo: ritardo grave",
+        3:"Ritardo: treno soppresso"
+    }
+
+    statusTranslator = {
+        0:"Stato: situazione ideale",
+        1:"Stato: situazione accettabile",
+        2:"Stato: gravi problemi per i passeggeri"
+    }
    
     render() {
         let d = this.props.data.item
@@ -85,9 +98,9 @@ class Post extends React.Component {
                                 <Text style={this.styles.importantText}>{d.authorName}</Text>
                             </View>
                             <View style={this.styles.postContent}>
-                                <Text>Ritardo: { d.delay}</Text>
-                                <Text>Stato: {d.status}</Text>
-                                <Text>Commento: {d.comment}</Text>
+                                <Text>{this.delayTranslator[d.delay]}</Text>
+                                <Text>{this.statusTranslator[d.status]}</Text>
+                                <Text>{d.comment}</Text>
                             </View>
                         
                             

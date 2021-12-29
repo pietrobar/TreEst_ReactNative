@@ -2,13 +2,16 @@ import React from 'react';
 import { StyleSheet, SafeAreaView, TextInput, Text, Button, StatusBar} from 'react-native';
 import CommunicationController from './CommunicationController';
 import Dialog from "react-native-dialog";
+import SelectDropdown from 'react-native-select-dropdown'
+
 
 class PostWriter extends React.Component {
     state = {
         delay : "",
         status : "",
         comment : "",
-        commentDialogVisible : false
+        commentDialogVisible : false,
+        tryingTopPublishEmptyPost:false
     }
 
     setDelay = (value) =>{
@@ -29,36 +32,70 @@ class PostWriter extends React.Component {
 
     publishPost = () =>{
         this.setState(this.state)
-        console.log("pubblica post")
-        CommunicationController.addPost(global.appState.sid, this.props.did, this.state.delay,this.state.status,this.state.comment)
-        this.props.onBackPressed()
+        if(this.state.delay==""&&this.state.status==""&&this.state.comment==""){
+            this.showHideEmptyPostDialog()
+        }else{
+            console.log("pubblica post")
+            CommunicationController.addPost(global.appState.sid, this.props.did, this.state.delay,this.state.status,this.state.comment)
+            this.props.onBackPressed()
+        }
+        
     }
 
-    showHideDialog = () =>{
+    showHideLongCommentDialog = () =>{
         this.state.commentDialogVisible = !this.state.commentDialogVisible
         this.setState(this.state)
     }
+
+    showHideEmptyPostDialog = () =>{
+        this.state.tryingTopPublishEmptyPost = !this.state.tryingTopPublishEmptyPost
+        this.setState(this.state)
+    }
+
+    delayValues =["in orario","ritardo lieve","ritardo grave","treno soppresso"]
+    
+
+    statusValues = ["situazione ideale","situazione accettabile","gravi problemi per i passeggeri"]
+        
+    
+
+    
     
 
     render() {
         return(
-                <SafeAreaView> 
-                    <TextInput
-                        style={this.styles.input}
-                        onChangeText={val => this.setDelay(val)}
-                        placeholder="Ritardo"
-                        keyboardType="numeric"
+                <SafeAreaView style={{marginTop:40}}> 
+                    <SelectDropdown
+                        defaultButtonText="Ritardo"
+                        data={Object.values(this.delayValues)}
+                        onSelect={(selectedItem, index) => {
+                            this.setDelay(index)
+                        }}
+                        buttonTextAfterSelection={(selectedItem, index) => {
+                            return selectedItem
+                        }}
+                        rowTextForSelection={(item, index) => {
+                            return item
 
+                        }}
                     />
-                    <TextInput
-                        style={this.styles.input}
-                        onChangeText={val => this.setStatus(val)}
-                        placeholder="Stato"
-                        keyboardType="numeric"
+                    <SelectDropdown
+                        defaultButtonText="Stato"
+                        data={Object.values(this.statusValues)}
+                        onSelect={(selectedItem, index) => {
+                            this.setStatus(index)
+                        }}
+                        buttonTextAfterSelection={(selectedItem, index) => {
+                            return selectedItem
+                        }}
+                        rowTextForSelection={(item, index) => {
+                            return item
 
+                        }}
                     />
+                    
                     <TextInput
-                        style={this.styles.input}
+                        style={this.styles.commentInput}
                         onChangeText={val => this.setComment(val)}
                         placeholder="Commento"
                     />
@@ -72,8 +109,12 @@ class PostWriter extends React.Component {
 
 
                 <Dialog.Container visible={this.state.commentDialogVisible}>
-                <Dialog.Title>I commenti non possono superare 100 caratteri</Dialog.Title>
-                <Dialog.Button label="OK  " onPress={this.showHideDialog}/>
+                    <Dialog.Title>I commenti non possono superare 100 caratteri</Dialog.Title>
+                    <Dialog.Button label="OK  " onPress={this.showHideLongCommentDialog}/>
+                </Dialog.Container> 
+                <Dialog.Container visible={this.state.tryingTopPublishEmptyPost}>
+                    <Dialog.Title>I post non possono essere vuoti</Dialog.Title>
+                    <Dialog.Button label="OK  " onPress={this.showHideEmptyPostDialog}/>
                 </Dialog.Container>         
             </SafeAreaView>
             
@@ -99,12 +140,12 @@ class PostWriter extends React.Component {
             alignItems: "center",
             
         },
-        input: {
-            height: 40,
+        commentInput:{
+            height: 200,
             margin: 12,
             borderWidth: 1,
             padding: 10,
-          },
+        }
       });
 }
 
