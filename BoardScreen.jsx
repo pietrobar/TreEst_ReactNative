@@ -62,14 +62,21 @@ class BoardScreen extends React.Component {
       if (!this.state.postWriterVisible && this.state.jsonPost!=null &&!this.state.mapVisible){
         return <SafeAreaView style={this.styles.container}>
           <View style={this.styles.directionContainer}>
-            <Text style={this.styles.title}>{start}</Text>
+            <View style={{flexDirection:'column', flex:1}}>
+              <Text>Partenza</Text>
+              <Text style={this.styles.title}>{start}</Text>
+            </View>
+            
             <IconButton
                               icon={"swap-horizontal-bold"}
                               color={Colors.red500}
                               size={50}
                               onPress={this.swapDirection}
                           /> 
-            <Text style={this.styles.title}>{ end}</Text>
+            <View style={{flexDirection:'column', flex:1}}>
+              <Text>Arrivo</Text>
+              <Text style={this.styles.title}>{ end}</Text>
+            </View>
           </View>
           
           
@@ -117,7 +124,6 @@ class BoardScreen extends React.Component {
     styles = StyleSheet.create({
         title: {
             fontSize: 40,
-            width:"40%",
           },
         container:{
             flex:1,
