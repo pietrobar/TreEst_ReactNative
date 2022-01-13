@@ -16,14 +16,16 @@ class PostWriter extends React.Component {
 
     setDelay = (value) =>{
         this.state.delay = value
-        
+        this.setState(this.state)
     }
     setStatus = (value) =>{
         this.state.status = value
+        this.setState(this.state)
     }
     setComment = (value) =>{
         if(value.length<101){
             this.state.comment = value
+            this.setState(this.state)
         }else
             this.showHideLongCommentDialog()
 
@@ -31,13 +33,15 @@ class PostWriter extends React.Component {
     }
 
     publishPost = () =>{
-        this.setState(this.state)
+        
         if(this.state.delay==""&&this.state.status==""&&this.state.comment==""){
             this.showHideEmptyPostDialog()
         }else{
             console.log("pubblica post")
             CommunicationController.addPost(global.appState.sid, this.props.did, this.state.delay,this.state.status,this.state.comment)
-            this.props.onBackPressed()
+                .then(response => this.props.onBackPressed())
+                .catch(response => this.props.onBackPressed())
+            //todo:prendere ispirazione da android
         }
         
     }
