@@ -99,9 +99,11 @@ class BoardScreen extends React.Component {
           </View>
           
           <View style={this.styles.buttonMenu}>
-            <View style={this.styles.button}><TouchableOpacity onPress={() => this.props.onBackPressed()}><Text>Home</Text></TouchableOpacity></View>
-            <View style={this.styles.button}><TouchableOpacity onPress={() => this.showPostWriter()}><Text>Nuovo Post</Text></TouchableOpacity></View>
-            <View style={this.styles.button}><TouchableOpacity onPress={() => this.showMap()}><Text>Mappa</Text></TouchableOpacity></View>
+
+
+            <TouchableOpacity style={this.styles.button} onPress={() => this.props.onBackPressed()}><Text>Home</Text></TouchableOpacity>
+            <TouchableOpacity style={this.styles.button} onPress={() => this.showPostWriter()}><Text>Nuovo Post</Text></TouchableOpacity>
+            <TouchableOpacity style={this.styles.button} onPress={() => this.showMap()}><Text>Mappa</Text></TouchableOpacity>
             
         
           </View>

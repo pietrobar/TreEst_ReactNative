@@ -55,7 +55,7 @@ class PostWriter extends React.Component {
     delayValues =["in orario","ritardo lieve","ritardo grave","treno soppresso"]
     
 
-    statusValues = ["situazione ideale","situazione accettabile","gravi problemi per i passeggeri"]
+    statusValues = ["situazione ideale","accettabile","gravi problemi"]
         
     
 
