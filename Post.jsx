@@ -1,10 +1,20 @@
 import React, { Component } from 'react';
-import { View ,Text,StyleSheet, ImageBackground, Touchable, TouchableHighlight} from 'react-native';
+import { Dimensions,View ,Text,StyleSheet, ImageBackground, Touchable, TouchableHighlight} from 'react-native';
 import CommunicationController from './CommunicationController';
 import StorageManager from './StorageManager';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { IconButton, Colors } from 'react-native-paper';
+import { IconButton, Colors , Card, Title, Paragraph } from 'react-native-paper';
+
+
+const SCREEN_WIDTH = Dimensions.get('window').width; // get current width
+const SCALE = 375; 
+
+const scaleFontSize = (fontSize) => {
+    const ratio = fontSize / SCALE; // get ratio based on your standard scale 
+    const newSize = Math.round(ratio * SCREEN_WIDTH);
+    return newSize; 
+}
 
 class Post extends React.Component {
 
@@ -80,7 +90,9 @@ class Post extends React.Component {
         let d = this.props.data.item
         return(
             <View>
-                {
+                <Card style={this.styles.card}>
+                    <Card.Content>
+                    {
                     <View style={this.styles.post}>
                         <View style={this.styles.postHeader}>
                             <View style={this.styles.authorInfo}>
@@ -95,7 +107,7 @@ class Post extends React.Component {
                                 </ImageBackground>
                                 </TouchableHighlight>
                                 
-                                <Text style={this.styles.importantText}>{d.authorName}</Text>
+                                <Text style={this.styles.username}>{d.authorName}</Text>
                             </View>
                             <View style={this.styles.postContent}>
                                 <Text>{this.delayTranslator[d.delay]}</Text>
@@ -110,12 +122,15 @@ class Post extends React.Component {
                         
                         
                         
-                        <Text>{d.datetime.substr(0, d.datetime.indexOf('.')) }</Text>
+                        <Text style={{fontSize:10}}>{d.datetime.substr(0, d.datetime.indexOf('.')) }</Text>
                         
                         
                     </View>
                     
                 }
+                    </Card.Content>
+                </Card>
+                
             </View>
         )
       
@@ -123,12 +138,23 @@ class Post extends React.Component {
                   
     }
     styles = StyleSheet.create({
-        
+        card:{
+            margin:10,
+            shadowColor: "#000",
+            shadowOffset: {
+                width: 0,
+                height: 5,
+            },
+            shadowOpacity: 0.34,
+            shadowRadius: 6.27,
+
+            elevation: 10,
+        },
         post: {
-            margin: 12,
+            /*margin: 12,
             padding: 12,
             borderRadius: 8,
-            backgroundColor: "#eeeeee",
+            backgroundColor: "#eeeeee",*/
             flex:1
         },
         postHeader:{
@@ -139,8 +165,8 @@ class Post extends React.Component {
             alignItems:"center",
             flex:1
         },
-        importantText:{
-            fontSize: 24
+        username:{
+            fontSize: scaleFontSize(20)
         },
         postContent:{
             flex:2,
