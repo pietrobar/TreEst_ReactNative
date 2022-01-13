@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import {SafeAreaView,FlatList,StyleSheet, Text, View , Button} from 'react-native';
+import {SafeAreaView,FlatList,StyleSheet, Text, View , ActivityIndicator} from 'react-native';
 import Row from './Row';
 import CommunicationController from './CommunicationController'
 import { IconButton, Colors } from 'react-native-paper';
@@ -59,7 +59,9 @@ class LinesScreen extends React.Component{
           <ProfileSettingScreen onBackPressed={this.openProfileSetting}></ProfileSettingScreen>
         </SafeAreaView>
       }else{
-        return <View><Text>Aspetto i dati</Text></View>
+        return <SafeAreaView style={{flex: 1,justifyContent:"center",flexDirection:"row",justifyContent:"space-around",padding: 10}}>
+          <ActivityIndicator size="large" color="#0000ff" />
+        </SafeAreaView>
       }
       
   }

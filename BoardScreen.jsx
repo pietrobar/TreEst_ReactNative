@@ -1,7 +1,7 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 
-import { Dimensions, Text, StyleSheet, SafeAreaView, FlatList, View, TouchableOpacity} from 'react-native';
+import { Dimensions, Text, StyleSheet, SafeAreaView, FlatList, View, TouchableOpacity, ActivityIndicator} from 'react-native';
 import Post from './Post';
 import CommunicationController from './CommunicationController';
 import PostWriter from './PostWriter';
@@ -117,8 +117,8 @@ class BoardScreen extends React.Component {
       }else if(this.state.mapVisible){
         return <SafeAreaView style={this.styles.container}>{<MapPage did={this.props.direction.did} onBackPressed={this.showMap}></MapPage>}</SafeAreaView>
       }else{
-        return <SafeAreaView style={this.styles.container}>
-          <Text>Aspetto i dati</Text>
+        return <SafeAreaView style={{flex: 1,justifyContent:"center",flexDirection:"row",justifyContent:"space-around",padding: 10}}>
+          <ActivityIndicator size="large" color="#0000ff" />
         </SafeAreaView>
       }
       

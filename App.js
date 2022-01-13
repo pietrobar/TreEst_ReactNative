@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import {SafeAreaView,Text,StyleSheet } from 'react-native';
+import {SafeAreaView,Text,StyleSheet, ActivityIndicator } from 'react-native';
 import BoardScreen from './BoardScreen';
 import CommunicationController from './CommunicationController'
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -115,10 +115,9 @@ class App extends React.Component{
             <StatusBar styles="auto"/>
           </SafeAreaView>;
       }else{
-        return <SafeAreaView style={this.styles.container}>
-          <Text>Aspetto i dati</Text>
-          <StatusBar styles="auto"/>
-      </SafeAreaView>
+        return <SafeAreaView style={{flex: 1,justifyContent:"center",flexDirection:"row",justifyContent:"space-around",padding: 10}}>
+          <ActivityIndicator size="large" color="#0000ff" />
+        </SafeAreaView>
       }
       
   }
