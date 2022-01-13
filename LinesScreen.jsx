@@ -36,8 +36,10 @@ class LinesScreen extends React.Component{
       if (this.state.lines.length!=0 && !this.state.isSettingProfile){
           return <SafeAreaView style={this.styles.container}>
             <View style={this.styles.row}>
+              <View style={{flex:1}}></View>
               <Text style={this.styles.title}>Tratte</Text>
               <IconButton
+                style={{flex:1, marginTop:19}}
                 icon="account-circle"
                 color={Colors.red500}
                 size={50}
@@ -68,11 +70,11 @@ class LinesScreen extends React.Component{
   styles = StyleSheet.create({
     title: {
       fontSize: 48,
-      paddingTop: 20 
+      paddingTop: 20,
+      flex:1
     },
     row:{
-      flexDirection:"row",
-      justifyContent:"space-between"
+      flexDirection:"row"
     },
     container:{
       flex:1

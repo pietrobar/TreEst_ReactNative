@@ -87,7 +87,7 @@ class Post extends React.Component {
                                 
                                 <TouchableHighlight disabled={global.appState.uid===d.author} onPress={() => this.followUnfollow(d.followingAuthor, d.author)}>
                                 <ImageBackground style={{width: 80, height: 80}} source={{uri: this.state.base64Icon}}>
-                                    <IconButton style={{position:"absolute", left:-20, top:-20, opacity:global.appState.uid===d.author?0:1}}
+                                    <IconButton style={{position:"absolute", left:-30, top:-20, opacity:global.appState.uid===d.author?0:1}}
                                     icon={d.followingAuthor?this.state.followIcon.minus:this.state.followIcon.plus}
                                     color={Colors.red500}
                                     size={30}

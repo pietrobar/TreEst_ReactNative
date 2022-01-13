@@ -62,7 +62,7 @@ class ProfileSettingScreen extends React.Component {
         }
     
         let pickerResult = await ImagePicker.launchImageLibraryAsync({"base64":true});
-        console.log("banana",pickerResult)
+        
         if(pickerResult.base64){
             if(pickerResult.base64.length<137000 && pickerResult.height==pickerResult.width){
                 this.state.picture=pickerResult.base64
