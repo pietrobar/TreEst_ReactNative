@@ -3,6 +3,8 @@ import { StyleSheet, SafeAreaView, TextInput, Text, Button, StatusBar, View, Tou
 import CommunicationController from './CommunicationController';
 import Dialog from "react-native-dialog";
 import SelectDropdown from 'react-native-select-dropdown'
+import { Colors } from 'react-native-paper';
+
 
 
 class PostWriter extends React.Component {
@@ -71,7 +73,7 @@ class PostWriter extends React.Component {
                 <SafeAreaView style={{marginTop:"30%", alignItems:"center"}}> 
                     <View style={{flexDirection:"row", width:"90%"}}>
                         <SelectDropdown
-                            buttonStyle={{flex:1, marginLeft:5}}
+                            buttonStyle={{flex:1, marginLeft:5,backgroundColor:Colors.green100,borderRadius:10, elevation:10}}
                             defaultButtonText="Ritardo"
                             data={Object.values(this.delayValues)}
                             onSelect={(selectedItem, index) => {
@@ -85,7 +87,7 @@ class PostWriter extends React.Component {
                             }}
                         />
                         <SelectDropdown
-                            buttonStyle={{flex:1, marginRight:5}}
+                            buttonStyle={{flex:1, marginRight:5, backgroundColor:Colors.green100, borderRadius:10, elevation:10}}
                             defaultButtonText="Stato"
                             data={Object.values(this.statusValues)}
                             onSelect={(selectedItem, index) => {
@@ -138,9 +140,13 @@ class PostWriter extends React.Component {
         },
         button: {
             alignItems: "center",
-            backgroundColor: "#DDDDDD",
+            backgroundColor: Colors.green100,
             padding: 10,
-            width: 400
+            marginTop: 10,
+            width: "90%",
+            borderRadius:10,
+            elevation:10
+
           },
         container:{
             flex:1,
@@ -154,14 +160,7 @@ class PostWriter extends React.Component {
             borderWidth: 1,
             padding: 10,
             width: "90%"
-        },
-        button: {
-            alignItems: "center",
-            backgroundColor: "#DDDDDD",
-            padding: 10,
-            width: "90%",
-            marginTop:10
-          }
+        }
       });
 }
 

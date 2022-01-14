@@ -1,5 +1,7 @@
 import React from 'react';
 import { StyleSheet, Button, Text, View , TouchableOpacity} from 'react-native';
+import { Colors } from 'react-native-paper';
+
 class Row extends React.Component {
     
     render() {
@@ -22,14 +24,18 @@ class Row extends React.Component {
         },
         button: {
             alignItems: "center",
-            backgroundColor: "#DDDDDD",
+            backgroundColor: Colors.green100,
             padding: 10,
-            width: "90%"
+            width: "90%",
+            borderRadius:10,
+            marginTop:5,
+            elevation:10
           },
         container:{
             flex:1,
             justifyContent: "space-between",
             alignItems: "center",
+            marginBottom:20
             
         }
       });

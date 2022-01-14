@@ -116,7 +116,7 @@ class App extends React.Component{
           </SafeAreaView>;
       }else{
         return <SafeAreaView style={{flex: 1,justifyContent:"center",flexDirection:"row",justifyContent:"space-around",padding: 10}}>
-          <ActivityIndicator size="large" color="#0000ff" />
+          <ActivityIndicator size="large" color="#27873e" />
         </SafeAreaView>
       }
       

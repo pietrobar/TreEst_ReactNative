@@ -76,7 +76,7 @@ class BoardScreen extends React.Component {
             
             <IconButton
                               icon={"swap-horizontal-bold"}
-                              color={Colors.red500}
+                              color={Colors.green500}
                               size={50}
                               onPress={this.swapDirection}
                           /> 
@@ -118,7 +118,7 @@ class BoardScreen extends React.Component {
         return <SafeAreaView style={this.styles.container}>{<MapPage did={this.props.direction.did} onBackPressed={this.showMap}></MapPage>}</SafeAreaView>
       }else{
         return <SafeAreaView style={{flex: 1,justifyContent:"center",flexDirection:"row",justifyContent:"space-around",padding: 10}}>
-          <ActivityIndicator size="large" color="#0000ff" />
+          <ActivityIndicator size="large" color="#27873e" />
         </SafeAreaView>
       }
       
@@ -140,7 +140,7 @@ class BoardScreen extends React.Component {
             flexDirection: "column"
         },
         directionContainer:{
-          flex:2,
+          flex:2.5,
           flexDirection: "row",
           justifyContent: "space-evenly",
           flexWrap: "wrap"
@@ -151,14 +151,15 @@ class BoardScreen extends React.Component {
           alignItems: "flex-end",
         },
         list:{
-          flex:8
+          flex:15
         },
         button: {
           alignItems: "center",
-          backgroundColor: "#DDDDDD",
+          backgroundColor: Colors.green100,
           padding:10,
           flex: 1,
-          margin:2
+          margin:2,
+          borderRadius:10
         },
         
       });

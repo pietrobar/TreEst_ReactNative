@@ -4,6 +4,8 @@ import * as Location from 'expo-location';
 import { SafeAreaView, Text, StatusBar, Dimensions, StyleSheet, View, Button, TouchableOpacity} from 'react-native';
 import MapView from 'react-native-maps';
 import CommunicationController from './CommunicationController';
+import { Colors } from 'react-native-paper';
+
 
 class MapPage extends React.Component {
 
@@ -149,7 +151,7 @@ class MapPage extends React.Component {
         },
         button: {
             alignItems: "center",
-            backgroundColor: "#DDDDDD",
+            backgroundColor: Colors.green100,
             padding: 10,
             width: "100%",
           }
