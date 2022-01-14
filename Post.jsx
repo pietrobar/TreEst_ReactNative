@@ -139,16 +139,10 @@ class Post extends React.Component {
     }
     styles = StyleSheet.create({
         card:{
-            margin:10,
+            borderRadius:0,
+            marginTop:20,
             shadowColor: "#000",
-            shadowOffset: {
-                width: 0,
-                height: 5,
-            },
-            shadowOpacity: 0.34,
-            shadowRadius: 6.27,
-
-            elevation: 10,
+            elevation: 5,
         },
         post: {
             /*margin: 12,
