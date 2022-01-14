@@ -3,6 +3,8 @@ import { SafeAreaView , View, StyleSheet, Image, Text,TextInput, TouchableOpacit
 import CommunicationController from './CommunicationController';
 import * as ImagePicker from 'expo-image-picker';
 import Dialog from "react-native-dialog";
+import { Colors } from 'react-native-paper';
+
 
 
 
@@ -137,10 +139,12 @@ class ProfileSettingScreen extends React.Component {
           },
           button: {
             alignItems: "center",
-            backgroundColor: "#DDDDDD",
+            backgroundColor: Colors.green100,
             padding: 10,
             width: "90%",
-            marginTop:10
+            marginTop:10,
+            borderRadius:10,
+            elevation:10
           }
       });
     
