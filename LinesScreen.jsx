@@ -37,7 +37,11 @@ class LinesScreen extends React.Component{
           return <SafeAreaView style={this.styles.container}>
             <View style={this.styles.row}>
               <View style={{flex:1}}></View>
-              <Text style={this.styles.title}>Tratte</Text>
+              <View style={{flexDirection:"column", alignItems:"center"}}>
+              <Text style={this.styles.title}>TreEst</Text>
+              <Text style={{fontSize:25}} >Tratte</Text>
+              </View>
+              
               <IconButton
                 style={{flex:1, marginTop:19}}
                 icon="account-circle"
@@ -74,7 +78,8 @@ class LinesScreen extends React.Component{
       flex:1
     },
     row:{
-      flexDirection:"row"
+      flexDirection:"row",
+      flex:.2
     },
     container:{
       flex:1
