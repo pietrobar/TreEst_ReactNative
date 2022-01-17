@@ -48,7 +48,7 @@ class BoardScreen extends React.Component {
       CommunicationController.getPosts(global.appState.sid,did)
               .then(response=>{
                 console.log("response ",response)
-                response.posts.sort((p1,p2)=>p2.followingAuthor-p1.followingAuthor)//true=1, false=0
+                //response.posts.sort((p1,p2)=>p2.followingAuthor-p1.followingAuthor)//true=1, false=0
                 this.state.jsonPost=response
                 this.setState(this.state)})
               .catch(error => console.log("errore "+error))
