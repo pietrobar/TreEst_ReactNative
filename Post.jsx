@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Dimensions,View ,Text,StyleSheet, ImageBackground, Touchable, TouchableHighlight} from 'react-native';
+import base64 from 'react-native-base64'
 import CommunicationController from './CommunicationController';
 import StorageManager from './StorageManager';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -51,6 +52,7 @@ class Post extends React.Component {
                         console.log("setting image from db")
                         this.state.base64Icon=this.state.base64Primer+result
                         this.setState(this.state)
+                        //todo: controllo base64 con un decoder
                     }
                     
                 },
