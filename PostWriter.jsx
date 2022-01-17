@@ -12,7 +12,6 @@ class PostWriter extends React.Component {
         delay : "",
         status : "",
         comment : "",
-        commentDialogVisible : false,
         tryingTopPublishEmptyPost:false
     }
 
@@ -25,11 +24,10 @@ class PostWriter extends React.Component {
         this.setState(this.state)
     }
     setComment = (value) =>{
-        if(value.length<101){
-            this.state.comment = value
-            this.setState(this.state)
-        }else
-            this.showHideLongCommentDialog()
+        
+        this.state.comment = value
+        this.setState(this.state)
+        
 
             
     }
@@ -48,10 +46,6 @@ class PostWriter extends React.Component {
         
     }
 
-    showHideLongCommentDialog = () =>{
-        this.state.commentDialogVisible = !this.state.commentDialogVisible
-        this.setState(this.state)
-    }
 
     showHideEmptyPostDialog = () =>{
         this.state.tryingTopPublishEmptyPost = !this.state.tryingTopPublishEmptyPost
@@ -109,7 +103,16 @@ class PostWriter extends React.Component {
                         onChangeText={val => this.setComment(val)}
                         placeholder="Commento"
                         multiline={true}
+                        maxLength={100}
                     />
+                    <Text style={{
+                    fontSize:10,
+                    color:'grey',
+                    
+                    }}> 
+                    
+                    {this.state.comment.length}/100 
+                </Text>
                 <TouchableOpacity style={this.styles.button} onPress={()=>this.publishPost()}><Text>Pubblica</Text></TouchableOpacity>
 
                 <TouchableOpacity style={this.styles.button} onPress={()=>this.props.onBackPressed()}><Text>Indietro</Text></TouchableOpacity>   
@@ -118,10 +121,7 @@ class PostWriter extends React.Component {
 
 
 
-                <Dialog.Container visible={this.state.commentDialogVisible}>
-                    <Dialog.Title>I commenti non possono superare 100 caratteri</Dialog.Title>
-                    <Dialog.Button label="OK  " onPress={this.showHideLongCommentDialog}/>
-                </Dialog.Container> 
+                
                 <Dialog.Container visible={this.state.tryingTopPublishEmptyPost}>
                     <Dialog.Title>I post non possono essere vuoti</Dialog.Title>
                     <Dialog.Button label="OK  " onPress={this.showHideEmptyPostDialog}/>
