@@ -82,7 +82,12 @@ class App extends React.Component{
         }).catch(e=>console.log(e))
         //in second access the lineInfo COULD be saved in asyncStorage
         AsyncStorage.getItem("lineInfo").then(response=>{
-          if (response && Object.keys(response).length != 0 && Object.getPrototypeOf(response) != Object.prototype){
+          if (response==null){
+            //must show first page because evene if it's second acces lineInfo is not set
+            this.state.page="LinesScreen"
+
+          }
+          else if (response && Object.keys(response).length != 0 && Object.getPrototypeOf(response) != Object.prototype){
             response = JSON.parse(response)
             this.state.selectedLine = response.line
             this.state.selectedDirection = response.direction
