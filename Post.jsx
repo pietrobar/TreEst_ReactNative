@@ -92,7 +92,7 @@ class Post extends React.Component {
         let d = this.props.data.item
         return(
             <View>
-                <Card style={this.styles.card}>
+                <Card style={[this.styles.card,{backgroundColor:d.followingAuthor?Colors.lightGreen50:Colors.white}]}>
                     <Card.Content>
                     {
                     <View style={this.styles.post}>
