@@ -17,6 +17,8 @@ const scaleFontSize = (fontSize) => {
     return newSize; 
 }
 
+const regex = new RegExp("^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$")
+
 
 class Post extends React.Component {
 
@@ -44,19 +46,21 @@ class Post extends React.Component {
                     if (result==null){//image not in db or not most recent
                         CommunicationController.getUserPicture(global.appState.sid, d.author)
                         .then(res => {
-                            this.state.base64Icon=this.state.base64Primer+res.picture
-                            this.setState(this.state)
+                            if(this.validBase64(res.picture)){
+                                this.state.base64Icon=this.state.base64Primer+res.picture
+                                this.setState(this.state)
+                            }
                             //save into db
                             sm.storeUserPicture(res.uid, res.pversion, res.picture, res=>{}, error=>console.log(error))
                         })
                         .catch(error => console.log(error))
                     }else{//image in db is the most recent
-                        console.log("setting image from db")
-                        this.state.base64Icon=this.state.base64Primer+result
-                        this.setState(this.state)
-                        //todo: controllo base64 con un decoder
-                    }
-                    
+                        if(this.validBase64(result)){
+                            console.log("setting image from db")
+                            this.state.base64Icon=this.state.base64Primer+result
+                            this.setState(this.state)
+                        }
+                    }           
                 },
                 error => console.log("error", error))
         }
@@ -64,14 +68,8 @@ class Post extends React.Component {
 
 
     validBase64(maybe_base64){
-        //this method is too restrictive, some images are good but it throws the exception anyway
-        try {
-            base64.decode(maybe_base64)
-        } catch (err) {
-            console.log("immagine codificata in modo errato")
-            return false
-        }
-        return true
+        if((maybe_base64.startsWith("iVBORw0KGgo") || maybe_base64.startsWith("/9j/")))
+            return true
     }
 
 
